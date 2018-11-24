@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">50.001_1D_Project_CrowdChecker</string>
+    <string name="app_name">Java1D</string>
+    <string name="action_settings">Settings</string>
+    <string name="usernametext">Username</string>
+    <string name="passwordtext">Password</string>
+    <string name="loginbuttontext">Login</string>
+    <string name="title_activity_home_screen">home_screen</string>
+    <string name="title_activity_home_page">home_page</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
