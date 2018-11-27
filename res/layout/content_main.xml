@@ -13,7 +13,7 @@
     <ImageView
         android:id="@+id/loginpage"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/loginpage"
         android:adjustViewBounds="true"
         android:contentDescription="Place to type in @string/usernametext"
@@ -47,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/passwordtext"
         android:adjustViewBounds="true"
         android:contentDescription="Place to type in @string/passwordtext"
@@ -65,6 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/loginpage"
         android:layout_alignEnd="@+id/passwordtext"
+        android:layout_alignRight="@+id/passwordtext"
         android:text="@string/usernametext"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/loginpage"
@@ -75,6 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/loginpage"
+        android:layout_alignLeft="@+id/loginpage"
         android:layout_below="@+id/username"
         android:text="@string/passwordtext"
         app:layout_constraintBottom_toTopOf="@+id/username"
@@ -92,5 +96,29 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/enterusername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="251dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="65dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/enterpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/enterusername"
+        android:layout_alignLeft="@+id/enterusername"
+        android:layout_marginBottom="172dp"
+        android:ems="10"
+        android:inputType="textPassword" />
 
 </RelativeLayout>

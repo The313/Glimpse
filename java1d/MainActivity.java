@@ -1,5 +1,6 @@
 package com.example.jin.java1d;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,8 +9,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String DEFAULT_MESSAGE = "Someone";
+
+    EditText username, password;
+    Button button_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +35,32 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        username = (EditText)findViewById(R.id.enterusername);
+        password = (EditText)findViewById(R.id.enterpassword);
+        button_login = (Button)findViewById(R.id.loginbutton);
+
+        button_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(username.getText().toString().equals("admin")){
+                    if(password.getText().toString().equals("password")){
+                        Intent intenttohome = new Intent(MainActivity.this, newtabbed.class);
+                        String loginmessage = username.getText().toString();
+                        intenttohome.putExtra(DEFAULT_MESSAGE, loginmessage);
+                        startActivity(intenttohome);
+                    } else {
+                        Toast.makeText(MainActivity.this, "Invalid Login", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "Invalid Login", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

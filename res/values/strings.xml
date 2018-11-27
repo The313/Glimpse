@@ -5,9 +5,9 @@
     <string name="passwordtext">Password</string>
     <string name="loginbuttontext">Login</string>
     <string name="title_activity_home_screen">home_screen</string>
-    <string name="title_activity_home_page">home_page</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_newtabbed">newtabbed</string>
 </resources>
