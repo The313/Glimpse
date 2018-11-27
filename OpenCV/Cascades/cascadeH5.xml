@@ -9,6 +9,7 @@ V.K. from https://funvision.blogspot.com
   <featureType>LBP</featureType>
   <height>38</height>
   <width>38</width>
+  <stageParams>
     <boostType>GAB</boostType>
     <minHitRate>9.9999994039535522e-01</minHitRate>
     <maxFalseAlarm>6.0000002384185791e-01</maxFalseAlarm>
