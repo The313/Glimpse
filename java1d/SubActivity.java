@@ -29,7 +29,8 @@ public class SubActivity extends AppCompatActivity{
         swipeCont.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //refresh firebase capacity
+                //refresh firebase capacity, change MAXIMUM_CAPACITY
+                //replace last update string with LAST_UPDATE
             }
         });
         swipeCont.setColorSchemeResources(android.R.color.holo_blue_bright,
