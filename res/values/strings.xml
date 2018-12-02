@@ -10,4 +10,13 @@
     <string name="tab_text_3">Tab 3</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_newtabbed">newtabbed</string>
+    <string name="Parent_Facility">Parent Location</string>
+    <string name="Child_Facility">Child Location</string>
+    <string name="Current_Capacity">Current Capacity</string>
+    <string name="Last_Updated_On">Last Updated On:</string>
+    <string name="Opening_Hours">Opening Hours</string>
+    <string name="to_be_filled">---</string>
+    <string name="Rates">Rates</string>
+    <string name="Locations">Locations</string>
+    <string name="Other_Facilities">Other Facilities</string>
 </resources>
