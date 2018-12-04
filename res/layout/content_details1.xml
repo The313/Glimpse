@@ -104,7 +104,7 @@
                     android:textSize="24sp" />
 
                 <ImageView
-                    android:id="@+id/progressfront"
+                    android:id="@+id/progressback"
                     android:layout_width="match_parent"
                     android:layout_height="15dp"
                     android:layout_below="@id/textView13"
@@ -117,7 +117,7 @@
                     app:srcCompat="@drawable/backgroundprogressbar" />
 
                 <ImageView
-                    android:id="@+id/progressback"
+                    android:id="@+id/progressfront"
                     android:layout_width="match_parent"
                     android:layout_height="15dp"
                     android:layout_below="@id/textView13"
