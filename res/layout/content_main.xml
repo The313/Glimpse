@@ -5,84 +5,28 @@
     android:id="@+id/loginpage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#00ffff"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:layout_editor_absoluteY="81dp"
     tools:showIn="@layout/activity_main">
 
     <ImageView
-        android:id="@+id/loginpage"
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
-        android:scaleX="0.4"
-        android:scaleY="0.4"
+        android:layout_marginBottom="120dp"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:layout_centerVertical="true"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/usernametext"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/examplelogo" />
 
-    <ImageView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/loginpage"
-        android:adjustViewBounds="true"
-        android:contentDescription="Place to type in @string/usernametext"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        app:layout_constraintBottom_toTopOf="@+id/loginbutton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/typingbox" />
 
-    <ImageView
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/passwordtext"
-        android:adjustViewBounds="true"
-        android:contentDescription="Place to type in @string/passwordtext"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        app:layout_constraintBottom_toTopOf="@+id/username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginpage"
-        app:srcCompat="@drawable/typingbox" />
-
-    <TextView
-        android:id="@+id/usernametext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/loginpage"
-        android:layout_alignEnd="@+id/passwordtext"
-        android:layout_alignRight="@+id/passwordtext"
-        android:text="@string/usernametext"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/loginpage"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/passwordtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/loginpage"
-        android:layout_alignLeft="@+id/loginpage"
-        android:layout_below="@+id/username"
-        android:text="@string/passwordtext"
-        app:layout_constraintBottom_toTopOf="@+id/username"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/loginbutton"
@@ -90,35 +34,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="96dp"
+        android:layout_marginBottom="170dp"
         android:contentDescription="Click to login"
-        android:text="@string/loginbuttontext"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="@string/loginbuttontext" />
 
-    <EditText
-        android:id="@+id/enterusername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="251dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginLeft="65dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/enterpassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/enterusername"
-        android:layout_alignLeft="@+id/enterusername"
-        android:layout_marginBottom="172dp"
-        android:ems="10"
-        android:inputType="textPassword" />
 
 </RelativeLayout>
