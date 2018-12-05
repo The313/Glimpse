@@ -1,4 +1,4 @@
-package com.example.chias.crowdcheck;
+package com.example.jin.java1d;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -28,7 +28,7 @@ public class SubActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details1);
+        setContentView(R.layout.swimming_pool);
 
         LastUpdate = findViewById(R.id.textView14);
 
