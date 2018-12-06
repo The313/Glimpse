@@ -1,4 +1,4 @@
-# 50.001_1D_Proj: Glimpse
+# Glimpse
 
 <p align="center">
 <img src="https://github.com/The313/Glimpse/blob/master/Images/glimpsegif.gif" height="170">
