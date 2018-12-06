@@ -50,3 +50,16 @@ This tab lists the public spaces that have been favourited by the user before.
 ### Public Space Page
 
 There is a different public space page for every public space, and provides information about the specific space such as the current capacity, the opening hours, the address, and the booking link if relevant.
+
+Current list of spaces:
+
+* Indoor Sports Hall 1
+* Indoor Sports Hall 2
+* Swimming Pool
+* Fitness Centre
+* Rock Climbing Wall
+* Street Soccer Court
+* Building 57 Level 1 Pantry
+* Building 59 Level 4 Meeting Room
+
+
