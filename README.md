@@ -1,4 +1,4 @@
-# 50.001_1D_Proj
+# 50.001_1D_Proj: Glimpse
 
 
 ## Motivation
