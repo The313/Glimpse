@@ -4,11 +4,38 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+    <ImageView
+        android:id="@+id/bluebanner"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="-110dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/subname"
+        android:scaleType="fitXY" />
+
+    <ImageView
+        android:id="@+id/bluelogo"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="-104dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/subname" />
+
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="43dp"
-        android:layout_above="@+id/textView12"
+        android:layout_above="@+id/subname"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="0dp"
         android:layout_marginEnd="0dp"
@@ -16,12 +43,14 @@
         android:layout_marginBottom="-8dp"
         android:layout_toStartOf="@+id/home"
         android:layout_toLeftOf="@id/home"
+        android:paddingLeft="10dp"
         android:gravity="top"
-        android:textSize="24sp"
+        android:text=""
+        android:textSize="28sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/subname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/home"
@@ -30,7 +59,9 @@
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginBottom="-12dp"
+        android:paddingLeft="10dp"
         android:gravity="bottom"
+        android:text=""
         android:textSize="18sp" />
 
     <ImageButton
@@ -47,14 +78,14 @@
         android:id="@+id/mainpicture"
         android:layout_width="match_parent"
         android:layout_height="169dp"
-        android:layout_below="@+id/textView12"
+        android:layout_below="@+id/subname"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="15dp"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/unlabelled_rock_climbing_wall" />
+        app:srcCompat="@drawable/unlabelled_swimming_pool" />
 
     <ImageButton
         android:id="@+id/favourite"
@@ -63,6 +94,16 @@
         android:layout_below="@+id/mainpicture"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true" />
+
+    <ImageButton
+        android:id="@+id/map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainpicture"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="50dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/map"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
@@ -97,21 +138,22 @@
                     android:layout_below="@id/CurrentCapacity"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
+                    android:paddingLeft="10dp"
                     android:text="@string/Current_Capacity"
-                    android:textSize="24sp" />
+                    android:textSize="16sp" />
 
 
                 <ProgressBar
-                    android:id="@+id/progressBar3"
-                    style="?android:attr/progressBarStyleHorizontal"
+                    android:id="@+id/progressbar"
                     android:layout_width="match_parent"
-                    android:layout_height="29dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="33dp" />
+                    android:layout_height="22dp"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="10dp"
+                    android:layout_below="@+id/CurrentCapacity"
+                    android:scaleY="3.0"
+                    android:paddingBottom="8dp"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+
 
                 <TextView
                     android:id="@+id/FirebaseLastUpdated"
@@ -120,11 +162,41 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="0dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="51dp"
+                    android:layout_marginTop="41dp"
+                    android:layout_below="@+id/progressbar"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="40dp"
                     android:text="@string/Last_Updated_On"
                     android:textSize="12sp" />
+
+
+
+                <TextView
+                    android:id="@+id/Spacing"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_below="@id/FirebaseLastUpdated"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="65dp"
+                    android:paddingTop="8dp"
+                    android:text=""
+                    android:textSize="24sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_below="@id/Spacing"/>
+
 
                 <TextView
                     android:id="@+id/OpeningHours"
@@ -133,13 +205,17 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_below="@id/FirebaseLastUpdated"
+                    android:layout_below="@id/Spacing"
                     android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="0dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="65dp"
+                    android:layout_marginTop="77dp"
+                    android:paddingTop="8dp"
+                    android:paddingLeft="15dp"
                     android:text="@string/Opening_Hours"
-                    android:textSize="24sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
 
                 <TextView
                     android:id="@+id/textView17"
@@ -149,12 +225,20 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_below="@id/OpeningHours"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="0dp"
+                    android:layout_marginBottom="9dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="97dp"
+                    android:layout_marginTop="106dp"
                     android:text="@string/to_be_filled"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_below="@id/textView17"/>
 
                 <TextView
                     android:id="@+id/Rates"
@@ -165,11 +249,13 @@
                     android:layout_alignParentTop="true"
                     android:layout_below="@id/textView17"
                     android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="0dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="123dp"
+                    android:layout_marginTop="144dp"
+                    android:paddingLeft="15dp"
                     android:text="@string/Rates"
-                    android:textSize="24sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/textView19"
@@ -179,12 +265,21 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_below="@id/Rates"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="0dp"
+                    android:layout_marginBottom="9dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="155dp"
+                    android:layout_marginTop="168dp"
                     android:text="@string/to_be_filled"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_below="@id/textView19"/>
+
 
                 <TextView
                     android:id="@+id/Location"
@@ -194,12 +289,16 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_below="@id/textView19"
+                    android:paddingTop="8dp"
                     android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="0dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="181dp"
+                    android:layout_marginTop="198dp"
+                    android:paddingLeft="15dp"
                     android:text="@string/Locations"
-                    android:textSize="24sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
 
                 <TextView
                     android:id="@+id/textView21"
@@ -209,15 +308,24 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_below="@id/Location"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="0dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="213dp"
+                    android:layout_marginTop="230dp"
+                    android:paddingTop="8dp"
                     android:text="@string/to_be_filled"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_below="@id/textView21"/>
 
                 <TextView
-                    android:id="@+id/otherFacilities"
+                    android:id="@+id/phonenumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -225,26 +333,13 @@
                     android:layout_alignParentTop="true"
                     android:layout_below="@id/textView21"
                     android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="0dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="239dp"
-                    android:text="@string/Other_Facilities"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/textView23"
-                    android:layout_width="match_parent"
-                    android:layout_height="27dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_below="@id/otherFacilities"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="271dp"
-                    android:text="@string/to_be_filled"
-                    android:textSize="18sp" />
+                    android:layout_marginTop="266dp"
+                    android:text="@string/phonenumber"
+                    android:paddingLeft="15dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView24"
@@ -253,13 +348,22 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_below="@id/textView23"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="0dp"
+                    android:layout_below="@id/phonenumber"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="298dp"
+                    android:layout_marginTop="292dp"
                     android:text="@string/to_be_filled"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_below="@id/textView24"/>
+
             </RelativeLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>

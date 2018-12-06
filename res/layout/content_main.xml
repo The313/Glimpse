@@ -11,32 +11,20 @@
     tools:layout_editor_absoluteY="81dp"
     tools:showIn="@layout/activity_main">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:adjustViewBounds="true"
-        android:cropToPadding="true"
-        android:layout_marginBottom="120dp"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="135dp"
+        android:visibility="visible"
         android:scaleX="0.8"
         android:scaleY="0.8"
-        android:layout_centerVertical="true"
-        android:visibility="visible"
-        app:srcCompat="@drawable/examplelogo" />
+        android:src="@drawable/glimpsegif"/>
 
 
-
-    <Button
-        android:id="@+id/loginbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="170dp"
-        android:contentDescription="Click to login"
-        android:text="@string/loginbuttontext" />
 
 
 

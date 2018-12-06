@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 
 import static com.example.jin.java1d.newtabbed.capacity;
 import static com.example.jin.java1d.newtabbed.current_capacity;
+import static com.example.jin.java1d.newtabbed.current_date;
+import static com.example.jin.java1d.newtabbed.current_time;
 import static com.example.jin.java1d.newtabbed.favourites;
 import static com.example.jin.java1d.newtabbed.places;
 
@@ -33,14 +35,16 @@ public class tab3 extends Fragment{
 
         final LinearLayout myRoot = (LinearLayout) rootView.findViewById(R.id.tab3linear);
         for (int i = 0; i < favourites.size(); i++) {
-            for (int j=0;i<places.length;j++) {
+            for (int j=0;j<places.length;j++) {
                 if (places[j].equals(favourites.get(i))) {
                     index = j;
                     break;
                 }
             }
-            if (newtabbed.capacity.get(index) < 0.99999 && capacity.get(index) != null) {
+            if (capacity.get(index) != null) {
                 ImageButton newbutton = new ImageButton(rootView.getContext());
+                final String date = current_date.get(index);
+                final String time = current_time.get(index);
                 final Integer currentcapacity = current_capacity.get(index);
                 int imageid = getResources().getIdentifier("labelled_" + places[index], "drawable", getContext().getPackageName());
                 final String currentplace = places[index];
@@ -56,6 +60,8 @@ public class tab3 extends Fragment{
                             final Class<?> place = Class.forName("com.example.jin.java1d." + currentplace);
                             Intent intenttoactivity = new Intent(tab3.this.getActivity(), place);
                             intenttoactivity.putExtra("EMPTY", currentcapacity.toString());
+                            intenttoactivity.putExtra("DATE", date);
+                            intenttoactivity.putExtra("TIME", time);
                             startActivity(intenttoactivity);
                         } catch (ClassNotFoundException e) {
                             e.printStackTrace();
@@ -91,6 +97,7 @@ public class tab3 extends Fragment{
             getFragmentManager().beginTransaction().detach(this).attach(this).commit();
         }
     }
+
 
 
 

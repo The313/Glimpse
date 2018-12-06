@@ -1,7 +1,9 @@
 package com.example.jin.java1d;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -22,10 +24,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 import static java.lang.Integer.parseInt;
+import static uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper.*;
 
-public class swimming_pool extends AppCompatActivity{
+public class swimming_pool extends AppCompatActivity {
 
+    ImageView BlueLogo;
+    ImageView BlueBanner;
     ImageButton Home;
     ImageButton Favourite;
     TextView Name;
@@ -33,9 +40,13 @@ public class swimming_pool extends AppCompatActivity{
     TextView OpeningHours;
     TextView LastUpdated;
     TextView Location;
+    TextView Rates;
+    TextView Number;
+    TextView Subname;
     ImageView picture;
     Boolean favon;
     String capacity;
+    ImageButton map;
     Integer current_capacity_num;
     Double percentage;
     public final Double MAXIMUM_CAPACITY = 30.0;
@@ -50,18 +61,30 @@ public class swimming_pool extends AppCompatActivity{
     private Handler mHandler = new Handler();
 
 
-    String openinghours = "Opening Hours: 10AM - 9PM";
+    String openinghours = "10AM - 9PM";
     String name = "Swimming Pool";
-    String lastupdated = "Last Updated on: ";
-    String location = "Address: 61 Changi South Ave 1";
+    String lastupdateddate;
+    String lastupdatetime;
+    String location = "61 Changi South Ave 1";
+    String rates = "Free admission";
+    String phonenumber = "+65 64998927";
+    String subname = "SUTD Sports and Recreation Centre";
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(wrap(newBase));
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.swimming_pool);
 
+
         Intent intent = getIntent();
         final String currentcap = intent.getStringExtra("EMPTY");
+        final String date = intent.getStringExtra("DATE");
+        final String time = intent.getStringExtra("TIME");
         Log.i("firebase", "currentcap = " + currentcap);
 
         picture = findViewById(R.id.mainpicture);
@@ -82,9 +105,12 @@ public class swimming_pool extends AppCompatActivity{
                         capacity = capacity.replace("{", "").replace("}", "");
                         current_capacity_num = (parseInt(capacity.split("=")[2]));
                         percentage = (current_capacity_num / MAXIMUM_CAPACITY);         //setting current capacity of space bar
+                        lastupdateddate = capacity.split("=")[0];
+                        lastupdatetime = capacity.split("=")[1];
                     }
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
@@ -98,7 +124,7 @@ public class swimming_pool extends AppCompatActivity{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(mprogressstatus < (int)((parseInt(currentcap)/MAXIMUM_CAPACITY)*100)){
+                while (mprogressstatus < (int) ((parseInt(currentcap) / MAXIMUM_CAPACITY) * 100)) {
                     mprogressstatus++;
                     android.os.SystemClock.sleep(40);
                     mHandler.post(new Runnable() {
@@ -115,7 +141,34 @@ public class swimming_pool extends AppCompatActivity{
         swipeCont.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                CurrentCapacity.setText(current_capacity_num.toString());
+                long max_num = Math.round(MAXIMUM_CAPACITY);
+                CurrentCapacity.setText(current_capacity_num + "/" + max_num + " people");
+                LastUpdated.setText("Last Updated At: " + lastupdateddate + ", " + lastupdatetime);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (mprogressstatus < (int) ((current_capacity_num / MAXIMUM_CAPACITY) * 100)) {
+                            mprogressstatus++;
+                            android.os.SystemClock.sleep(40);
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mprogressbar.setProgress(mprogressstatus);
+                                }
+                            });
+                        }
+                        while (mprogressstatus > (int) ((current_capacity_num / MAXIMUM_CAPACITY) * 100)) {
+                            mprogressstatus--;
+                            android.os.SystemClock.sleep(40);
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mprogressbar.setProgress(mprogressstatus);
+                                }
+                            });
+                        }
+                    }
+                }).start();
 
 
                 if (swipeCont.isRefreshing()) {
@@ -131,10 +184,13 @@ public class swimming_pool extends AppCompatActivity{
 
 
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
-        Boolean Rate_text = mPreferences.getBoolean(POOL,false);
+        Boolean Rate_text = mPreferences.getBoolean(POOL, false);
         favon = Rate_text;
 
-
+        BlueBanner = findViewById(R.id.bluebanner);
+        BlueBanner.setImageResource(R.drawable.greenbackground);
+        BlueLogo = findViewById(R.id.bluelogo);
+        BlueLogo.setImageResource(R.drawable.blanklogo);
 
 
         Home = findViewById(R.id.home);
@@ -147,7 +203,7 @@ public class swimming_pool extends AppCompatActivity{
             }
         });
         Favourite = findViewById(R.id.favourite);
-        if(!favon){
+        if (!favon) {
             Favourite.setImageResource(R.drawable.emptyheart);
         } else {
             Favourite.setImageResource(R.drawable.redheart);
@@ -168,22 +224,46 @@ public class swimming_pool extends AppCompatActivity{
             }
         });
 
-        Name = findViewById(R.id.name);
-        Name.setText(name);
-
-        OpeningHours = findViewById(R.id.OpeningHours);
-        OpeningHours.setText(openinghours);
-
         CurrentCapacity = findViewById(R.id.CurrentCapacity);
         long max_num = Math.round(MAXIMUM_CAPACITY);
         CurrentCapacity.setText(currentcap + "/" + max_num + " people");
 
+        Name = findViewById(R.id.name);
+        Name.setText(name);
+
+        OpeningHours = findViewById(R.id.textView17);
+        OpeningHours.setText(openinghours);
+        OpeningHours.setPadding(80, 10, 0, 0);
+
+
         LastUpdated = findViewById(R.id.FirebaseLastUpdated);
-        LastUpdated.setText(lastupdated);
+        LastUpdated.setText("Last Updated At: " + date + ", " + time);
 
-        Location = findViewById(R.id.Location);
+        Location = findViewById(R.id.textView21);
         Location.setText(location);
+        Location.setPadding(80, 0, 0, 0);
 
+        Rates = findViewById(R.id.textView19);
+        Rates.setText(rates);
+        Rates.setPadding(80, 0, 0, 0);
+
+        Number = findViewById(R.id.textView24);
+        Number.setText(phonenumber);
+        Number.setPadding(80, 0, 0, 0);
+
+        Subname = findViewById(R.id.subname);
+        Subname.setText(subname);
+
+        map = findViewById(R.id.map);
+        map.setBackground(null);
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("LOGCAT", "onClick()");
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(buildURL(getText(R.string.pool_id).toString())));
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -195,6 +275,11 @@ public class swimming_pool extends AppCompatActivity{
         SharedPreferences.Editor preferencesEditor = mPreferences.edit();
         preferencesEditor.putBoolean(POOL, favon);
         preferencesEditor.apply();
+    }
+
+
+    private String buildURL(String placeID) {
+        return "https://sutdmap.appspot.com/?id=" + placeID;
     }
 }
 

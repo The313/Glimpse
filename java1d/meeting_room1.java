@@ -1,8 +1,11 @@
 package com.example.jin.java1d;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +13,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.app.Fragment;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,9 +25,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import static java.lang.Integer.parseInt;
+import static uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper.wrap;
 
 public class meeting_room1 extends AppCompatActivity{
 
+    ImageView BlueLogo;
+    ImageView BlueBanner;
     ImageButton Home;
     ImageButton Favourite;
     TextView Name;
@@ -30,27 +38,41 @@ public class meeting_room1 extends AppCompatActivity{
     TextView OpeningHours;
     TextView LastUpdated;
     TextView Location;
-    ImageView picture;
+    TextView Rates;
+    TextView Number;
     TextView Subname;
+    ImageView picture;
     Boolean favon;
     String capacity;
     Integer current_capacity_num;
-    Float percentage;
-    public final Integer MAXIMUM_CAPACITY = 10;
+    Double percentage;
+    ImageButton map;
+    public final Double MAXIMUM_CAPACITY = 6.0;
     private SwipeRefreshLayout swipeCont;
 
     private final String sharedPrefFile = "com.example.jin.java1d.res.xml.sharedpreferences";
     public static final String MEETINGRM = "meeting_room1";
     SharedPreferences mPreferences;
 
+    ProgressBar mprogressbar;
+    int mprogressstatus = 0;
+    private Handler mHandler = new Handler();
 
 
-    String openinghours = "Opening Hours: 10AM - 9PM";
+    String openinghours = "8AM - 10PM";
     String name = "Meeting Room";
+    String lastupdated = "Last Updated at: ";
+    String location = "61 Changi South Ave 1";
+    String rates = "Free admission";
+    String phonenumber = "+65 64998927";
     String subname = "Blk 57 Level 4";
-    String lastupdated = "Last Updated on: ";
-    String location = "Address: 61 Changi South Ave 1";
-    String current_capacity = "0";
+    String lastupdateddate;
+    String lastupdatetime;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(wrap(newBase));
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,12 +80,13 @@ public class meeting_room1 extends AppCompatActivity{
         setContentView(R.layout.meeting_room1);
 
         Intent intent = getIntent();
-        String currentcap = intent.getStringExtra("EMPTY");
+        final String date = intent.getStringExtra("DATE");
+        final String time = intent.getStringExtra("TIME");
+        final String currentcap = intent.getStringExtra("EMPTY");
         Log.i("firebase", "currentcap = " + currentcap);
 
         picture = findViewById(R.id.mainpicture);
         picture.setImageResource(R.drawable.unlabelled_meeting_room1);
-
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
@@ -79,22 +102,75 @@ public class meeting_room1 extends AppCompatActivity{
                         capacity = ds.getValue().toString();
                         capacity = capacity.replace("{", "").replace("}", "");
                         current_capacity_num = (parseInt(capacity.split("=")[2]));
-                        percentage = (float) (current_capacity_num / MAXIMUM_CAPACITY);         //setting current capacity of space bar
+                        percentage = (current_capacity_num / MAXIMUM_CAPACITY);
+                        lastupdateddate = capacity.split("=")[0];
+                        lastupdatetime = capacity.split("=")[1];
                     }
                 }
             }
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                    Log.i("firebase", "Failed to read value.", error.toException());
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.i("firebase", "Failed to read value.", error.toException());
+            }
+        });
+
+
+        mprogressbar = (ProgressBar) findViewById(R.id.progressbar);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(mprogressstatus < (int)((parseInt(currentcap)/MAXIMUM_CAPACITY)*100)){
+                    mprogressstatus++;
+                    android.os.SystemClock.sleep(40);
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mprogressbar.setProgress(mprogressstatus);
+                        }
+                    });
                 }
-            });
+            }
+        }).start();
 
         swipeCont = (SwipeRefreshLayout) findViewById(R.id.swiperlayout);
         swipeCont.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                CurrentCapacity.setText(current_capacity_num.toString());
+                long max_num = Math.round(MAXIMUM_CAPACITY);
+                CurrentCapacity.setText(current_capacity_num + "/" + max_num + " people");
+                LastUpdated.setText("Last Updated At: " + lastupdateddate + ", " + lastupdatetime);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while(mprogressstatus < (int)((current_capacity_num/MAXIMUM_CAPACITY)*100)){
+                            mprogressstatus++;
+                            android.os.SystemClock.sleep(40);
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mprogressbar.setProgress(mprogressstatus);
+                                }
+                            });
+                        }
+                        while(mprogressstatus > (int)((current_capacity_num/MAXIMUM_CAPACITY)*100)){
+                            mprogressstatus--;
+                            android.os.SystemClock.sleep(40);
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mprogressbar.setProgress(mprogressstatus);
+                                }
+                            });
+                        }
+                    }
+                }).start();
+
+
+                if (swipeCont.isRefreshing()) {
+                    swipeCont.setRefreshing(false);
+                }
             }
         });
 
@@ -103,16 +179,20 @@ public class meeting_room1 extends AppCompatActivity{
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
         Boolean Rate_text = mPreferences.getBoolean(MEETINGRM,false);
         favon = Rate_text;
 
+        BlueBanner = findViewById(R.id.bluebanner);
+        BlueBanner.setImageResource(R.drawable.greenbackground);
+        BlueLogo = findViewById(R.id.bluelogo);
+        BlueLogo.setImageResource(R.drawable.blanklogo);
 
-        Subname = findViewById(R.id.textView12);
-        Subname.setText(subname);
+
 
         Home = findViewById(R.id.home);
-        Home.setBackgroundDrawable(null);
+        Home.setBackground(null);
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +206,7 @@ public class meeting_room1 extends AppCompatActivity{
         } else {
             Favourite.setImageResource(R.drawable.redheart);
         }
-        Favourite.setBackgroundDrawable(null);
+        Favourite.setBackground(null);
         Favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,21 +222,47 @@ public class meeting_room1 extends AppCompatActivity{
             }
         });
 
+        CurrentCapacity = findViewById(R.id.CurrentCapacity);
+        long max_num = Math.round(MAXIMUM_CAPACITY);
+        CurrentCapacity.setText(currentcap + "/" + max_num + " people");
+
         Name = findViewById(R.id.name);
         Name.setText(name);
 
-        OpeningHours = findViewById(R.id.OpeningHours);
+        OpeningHours = findViewById(R.id.textView17);
         OpeningHours.setText(openinghours);
+        OpeningHours.setPadding(80,10,0,0);
 
-        CurrentCapacity = findViewById(R.id.CurrentCapacity);
-        CurrentCapacity.setText(currentcap);
 
         LastUpdated = findViewById(R.id.FirebaseLastUpdated);
-        LastUpdated.setText(lastupdated);
+        LastUpdated.setText("Last Updated At: " + date + ", " + time);
 
-        Location = findViewById(R.id.Location);
+        Location = findViewById(R.id.textView21);
         Location.setText(location);
+        Location.setPadding(80,0,0,0);
 
+        Rates = findViewById(R.id.textView19);
+        Rates.setText(rates);
+        Rates.setPadding(80,0,0,0);
+
+        Number = findViewById(R.id.textView24);
+        Number.setText(phonenumber);
+        Number.setPadding(80,0,0,0);
+
+        Subname = findViewById(R.id.subname);
+        Subname.setText(subname);
+
+
+        map = findViewById(R.id.map);
+        map.setBackground(null);
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("LOGCAT", "onClick()");
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(buildURL(getText(R.string.meetingRoom_id).toString())));
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -168,6 +274,10 @@ public class meeting_room1 extends AppCompatActivity{
         SharedPreferences.Editor preferencesEditor = mPreferences.edit();
         preferencesEditor.putBoolean(MEETINGRM, favon);
         preferencesEditor.apply();
+    }
+
+    private String buildURL(String placeID) {
+        return "https://sutdmap.appspot.com/?id=" + placeID;
     }
 }
 

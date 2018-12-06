@@ -22,6 +22,8 @@ import static com.example.jin.java1d.MainActivity.DEFAULT_MESSAGE;
 import static com.example.jin.java1d.newtabbed.capacity;
 import static com.example.jin.java1d.newtabbed.current_capacity;
 import static com.example.jin.java1d.newtabbed.categories;
+import static com.example.jin.java1d.newtabbed.current_date;
+import static com.example.jin.java1d.newtabbed.current_time;
 import static com.example.jin.java1d.newtabbed.places;
 
 
@@ -35,11 +37,12 @@ public class tab2 extends Fragment{
 
         final View rootView = inflator.inflate(R.layout.tab1, container, false);
 
-
         LinearLayout myRoot = (LinearLayout) rootView.findViewById(R.id.tab1linear);
         for (int i = 0; i < places.length; i++) {
             if (newtabbed.capacity.get(i) < 0.99999 && capacity.get(i) != null) {
                 ImageButton newbutton = new ImageButton(rootView.getContext());
+                final String date = current_date.get(i);
+                final String time = current_time.get(i);
                 final Integer currentcapacity = current_capacity.get(i);
                 int imageid = getResources().getIdentifier("labelled_" + places[i], "drawable", getContext().getPackageName());
                 final String currentplace = places[i];
@@ -55,6 +58,8 @@ public class tab2 extends Fragment{
                             final Class<?> place = Class.forName("com.example.jin.java1d." + currentplace);
                             Intent intenttoactivity = new Intent(tab2.this.getActivity(), place);
                             intenttoactivity.putExtra("EMPTY", currentcapacity.toString());
+                            intenttoactivity.putExtra("DATE", date);
+                            intenttoactivity.putExtra("TIME", time);
                             startActivity(intenttoactivity);
                         } catch (ClassNotFoundException e) {
                             e.printStackTrace();

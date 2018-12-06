@@ -1,6 +1,7 @@
 package com.example.jin.java1d;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -51,26 +52,30 @@ public class newtabbed extends AppCompatActivity {
     Integer swimming_pool_capacity;
     String fitness_centre;
     Integer fitness_centre_capacity;
-    String one_occupancy;
-    String one_time;
-    SwipeRefreshLayout refreshLayout;
-    String firebaseData;
-    TextView dataText;
+    String date;
+    String timing;
 
-    Integer max_pantry_capacity = 4;
-    Integer max_ish1_capacity = 10;
-    Integer max_ish2_capacity = 10;
-    Integer max_meeting_room1_capacity = 5;
-    Integer max_rock_climbing_capacity = 6;
-    Integer max_swimming_pool_capacity = 20;
+    Integer max_pantry_capacity = 10;
+    Integer max_ish1_capacity = 30;
+    Integer max_ish2_capacity = 30;
+    Integer max_meeting_room1_capacity = 6;
+    Integer max_rock_climbing_capacity = 10;
+    Integer max_swimming_pool_capacity = 30;
     Integer max_soccer_court_capacity = 10;
-    Integer max_fitness_centre = 6;
+    Integer max_fitness_centre = 20;
 
     public static ArrayList<Float> capacity = new ArrayList<Float>();
     public static ArrayList<Integer> current_capacity = new ArrayList<Integer>();
+    public static ArrayList<String> current_date = new ArrayList<String>();
+    public static ArrayList<String> current_time = new ArrayList<String>();
     public static ArrayList<String> favourites = new ArrayList<String>();
-    public static String[] categories = {"indoor", "outdoor", "sports", "study"};
+    public static String[] categories = {"indoor", "outdoor", "sports", "study", "food"};
     public static String[] places = {"pantry","soccer_court", "ish1", "ish2", "meeting_room1", "swimming_pool", "rock_climbing_wall", "fitness_centre"};
+    public static String[] indoorlist = {"ish1", "ish2", "rock_climbing_wall", "fitness_centre", "meeting_room1", "pantry"};
+    public static String[] outdoorlist = {"swimming_pool", "soccer_court"};
+    public static String[] sportslist = {"soccer_court", "ish1", "ish2", "swimming_pool", "rock_climbing_wall", "fitness_centre"};
+    public static String[] studylist = {"meeting_room1"};
+    public static String[] foodlist = {"pantry"};
 
     private final String sharedPrefFile = "com.example.jin.java1d.res.xml.sharedpreferences";
     public static final String FITNESSCENTRE = "fitness_centre";
@@ -99,10 +104,19 @@ public class newtabbed extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         capacity.addAll(Arrays.asList(0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f, 0.8f));
         current_capacity.addAll(Arrays.asList(0,0,0,0,0,0,0,0));
-        super.onCreate(savedInstanceState);
+        current_time.addAll(Arrays.asList("","","","","","","",""));
+        current_date.addAll(Arrays.asList("","","","","","","",""));
         setContentView(R.layout.activity_newtabbed);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.blanklogo);
 
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
         Boolean fitness_centre_fav = mPreferences.getBoolean(FITNESSCENTRE,false);
@@ -165,10 +179,7 @@ public class newtabbed extends AppCompatActivity {
 
 
 
-
-
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -181,6 +192,10 @@ public class newtabbed extends AppCompatActivity {
                         pantry = ds.getValue().toString();
                         pantry = pantry.replace("{", "").replace("}", "");
                         pantry_capacity = parseInt(pantry.split("=")[2]);
+                        date = pantry.split("=")[0];
+                        timing = pantry.split("=")[1];
+                        current_date.set(0, date);
+                        current_time.set(0, timing);
                         current_capacity.set(0, pantry_capacity);
                         capacity.set(0, (float)pantry_capacity/max_pantry_capacity);         //setting current capacity of space bar
                     }
@@ -188,6 +203,10 @@ public class newtabbed extends AppCompatActivity {
                         soccer_court = ds.getValue().toString();
                         soccer_court = soccer_court.replace("{", "").replace("}","");
                         soccer_court_capacity = parseInt(soccer_court.split("=")[2]);
+                        date = soccer_court.split("=")[0];
+                        timing = soccer_court.split("=")[1];
+                        current_date.set(1, date);
+                        current_time.set(1, timing);
                         current_capacity.set(1, soccer_court_capacity);
                         capacity.set(1, (float)(soccer_court_capacity/max_soccer_court_capacity));
                     }
@@ -195,6 +214,10 @@ public class newtabbed extends AppCompatActivity {
                         ish1 = ds.getValue().toString();
                         ish1 = ish1.replace("{", "").replace("}", "");
                         ish1_capacity = parseInt(ish1.split("=")[2]);
+                        date = ish1.split("=")[0];
+                        timing = ish1.split("=")[1];
+                        current_date.set(2, date);
+                        current_time.set(2, timing);
                         current_capacity.set(2, ish1_capacity);
                         capacity.set(2, (float)(ish1_capacity/max_ish1_capacity));
                     }
@@ -202,6 +225,10 @@ public class newtabbed extends AppCompatActivity {
                         ish2 = ds.getValue().toString();
                         ish2 = ish2.replace("{", "").replace("}", "");
                         ish2_capacity = parseInt(ish2.split("=")[2]);
+                        date = ish2.split("=")[0];
+                        timing = ish2.split("=")[1];
+                        current_date.set(3, date);
+                        current_time.set(3, timing);
                         current_capacity.set(3, ish2_capacity);
                         capacity.set(3, (float)(ish2_capacity/max_ish2_capacity));
                     }
@@ -209,6 +236,10 @@ public class newtabbed extends AppCompatActivity {
                         meeting_room1 = ds.getValue().toString();
                         meeting_room1 = meeting_room1.replace("{", "").replace("}", "");
                         meeting_room1_capacity = parseInt(meeting_room1.split("=")[2]);
+                        date = meeting_room1.split("=")[0];
+                        timing = meeting_room1.split("=")[1];
+                        current_date.set(4, date);
+                        current_time.set(4, timing);
                         current_capacity.set(4, meeting_room1_capacity);
                         capacity.set(4, (float)(meeting_room1_capacity/max_meeting_room1_capacity));
                     }
@@ -216,6 +247,10 @@ public class newtabbed extends AppCompatActivity {
                         swimming_pool = ds.getValue().toString();
                         swimming_pool = swimming_pool.replace("{", "").replace("}", "");
                         swimming_pool_capacity = parseInt(swimming_pool.split("=")[2]);
+                        date = swimming_pool.split("=")[0];
+                        timing = swimming_pool.split("=")[1];
+                        current_date.set(5, date);
+                        current_time.set(5, timing);
                         current_capacity.set(5, swimming_pool_capacity);
                         capacity.set(5, (float)(swimming_pool_capacity/max_swimming_pool_capacity));
                     }
@@ -223,6 +258,10 @@ public class newtabbed extends AppCompatActivity {
                         rock_climbing_wall = ds.getValue().toString();
                         rock_climbing_wall = rock_climbing_wall.replace("{", "").replace("}", "");
                         rock_climbing_wall_capacity = parseInt(rock_climbing_wall.split("=")[2]);
+                        date = rock_climbing_wall.split("=")[0];
+                        timing = rock_climbing_wall.split("=")[1];
+                        current_date.set(6, date);
+                        current_time.set(6, timing);
                         current_capacity.set(6, rock_climbing_wall_capacity);
                         capacity.set(6, (float)(rock_climbing_wall_capacity/max_rock_climbing_capacity));
                     }
@@ -231,6 +270,10 @@ public class newtabbed extends AppCompatActivity {
                         fitness_centre = ds.getValue().toString();
                         fitness_centre = fitness_centre.replace("{", "").replace("}", "");
                         fitness_centre_capacity = parseInt(fitness_centre.split("=")[2]);
+                        date = fitness_centre.split("=")[0];
+                        timing = fitness_centre.split("=")[1];
+                        current_date.set(7, date);
+                        current_time.set(7, timing);
                         current_capacity.set(7, fitness_centre_capacity);
                         capacity.set(7, (float)(fitness_centre_capacity/max_fitness_centre));
                     }
@@ -250,9 +293,6 @@ public class newtabbed extends AppCompatActivity {
 
 
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -265,15 +305,9 @@ public class newtabbed extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        tabLayout.setBackgroundColor(0xFFFFFFFF);
+        tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#727272"));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
     }
 
@@ -298,6 +332,11 @@ public class newtabbed extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return false;
     }
 
     /**

@@ -1,63 +1,59 @@
 package com.example.jin.java1d;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.support.v4.app.Fragment;
+
+import static uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper.wrap;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String DEFAULT_MESSAGE = "Someone";
 
-    EditText username, password;
     Button button_login;
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //toolbar.setBackgroundColor(Color.parseColor("#56c09c"));
+        //setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setIcon(R.drawable.blanklogo);
+
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void run() {
+                Intent intent = new Intent(MainActivity.this, newtabbed.class);
+                startActivity(intent);
             }
-        });
 
-        username = (EditText)findViewById(R.id.enterusername);
-        password = (EditText)findViewById(R.id.enterpassword);
-        button_login = (Button)findViewById(R.id.loginbutton);
+        }, 2300L);
 
-        button_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(username.getText().toString().equals("admin")){
-                    if(password.getText().toString().equals("password")){
-                        Intent intenttohome = new Intent(MainActivity.this, newtabbed.class);
-                        String loginmessage = username.getText().toString();
-                        intenttohome.putExtra(DEFAULT_MESSAGE, loginmessage);
-                        startActivity(intenttohome);
-                    } else {
-                        Toast.makeText(MainActivity.this, "Invalid Login", Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(MainActivity.this, "Invalid Login", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+        View view = this.getWindow().getDecorView();
+        view.setBackgroundColor(Color.parseColor("#56c09c"));
     }
 
 
@@ -83,5 +79,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return false;
     }
 }
