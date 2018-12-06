@@ -1,5 +1,7 @@
 # 50.001_1D_Proj: Glimpse
 
+![GlimpseLogo](https://github.com/The313/Glimpse/blob/master/Images/glimpsegif.gif)
+
 
 ## Motivation
 
