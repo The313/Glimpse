@@ -15,7 +15,7 @@ Our solution includes adding a small camera that overlooks each space. This came
 
 
 <p align="center">
-<img src="https://github.com/The313/Glimpse/blob/master/Images/javaposter.jpg">
+<img src="https://github.com/The313/Glimpse/blob/master/Images/javaposter.jpg" height="550">
 </p>
 
 
