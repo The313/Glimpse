@@ -14,6 +14,11 @@ Singapore has a large number of recreational spaces in every neighbourhood that 
 Our solution includes adding a small camera that overlooks each space. This camera, with the help of computer vision, will help identify the total number people using the facility at every given period of time. This information is then sent to a central database. The data is pulled by a phone application which can then be accessed by everyone with that application installed. Only the numerical capacity will be displayed on the app and not the pictures taken as to provide as much information as possible while still maintaning privacy.
 
 
+<p align="center">
+<img src="https://github.com/The313/Glimpse/blob/master/Images/javaposter.jpg">
+</p>
+
+
 ## Implementation
 
 As a proof of concept, we will be applying our solution on a smaller scale within our school campus. 
@@ -24,11 +29,6 @@ The app consists of two main components:
 - HomePage
 - Public Space Page
 
-
-
-<p align="center">
-<img src="https://github.com/The313/Glimpse/blob/master/Images/javaposter.jpg">
-</p>
 
 
 ---
