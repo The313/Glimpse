@@ -26,7 +26,7 @@ The app consists of two main components:
 
 
 
-![Poster](https://github.com/The313/Glimpse/blob/master/Images/50001Team1-8.pdf)
+[embed]https://github.com/The313/Glimpse/blob/master/Images/50001Team1-8.pdf[/embed]
 
 
 ---
