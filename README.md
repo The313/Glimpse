@@ -63,3 +63,19 @@ Current list of spaces:
 * Building 59 Level 4 Meeting Room
 
 
+---
+
+### OpenCV
+
+##### Running build on LattePanda:
+
+1. Run cmd and cd to <b> "C:Users\LatttePanda" </b>
+2. Run command ``` "venv\Scripts\activate" ```
+3. Cd to <b> "C:\Users\LattePanda\Desktop\opencv" </b>
+4. Run ``` cnn_detection.py ```
+
+
+To change the location update of the camera, edit ``` ref = db.reference(location) ``` in cnn_detection.py
+
+
+
