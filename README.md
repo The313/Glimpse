@@ -26,7 +26,9 @@ The app consists of two main components:
 
 
 
-[embed]https://github.com/The313/Glimpse/blob/master/Images/50001Team1-8.pdf[/embed]
+<p align="center">
+<img src="https://github.com/The313/Glimpse/blob/master/Images/javaposter.jpg">
+</p>
 
 
 ---
