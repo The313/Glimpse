@@ -24,6 +24,11 @@ The app consists of two main components:
 - HomePage
 - Public Space Page
 
+
+
+![Poster](https://github.com/The313/Glimpse/blob/master/Images/50001Team1-8.pdf)
+
+
 ---
 ### HomePage
 
