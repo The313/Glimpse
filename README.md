@@ -34,10 +34,25 @@ The app consists of two main components:
 ---
 ### HomePage
 
+
 This page is a tabbed activity, which consists of three tabs:
 - Categories
 - Available
-- Favourites
+- Favourites   
+
+<br>
+
+
+<p float="left" align="middle">
+  <img src="https://github.com/The313/Glimpse/blob/master/Images/homepageUI.PNG" height="300" hspace="30"/>
+  <img src="https://github.com/The313/Glimpse/blob/master/Images/availableUI.PNG" height="300" hspace="30"/> 
+  <img src="https://github.com/The313/Glimpse/blob/master/Images/favouritesUI.PNG" height="300" hspace="30"/>
+</p>
+
+
+
+
+
 
 #### Categories
 
@@ -47,6 +62,8 @@ This tab sorts all listed public spaces based on the intended type of usage. Exa
 #### Available
 
 This tab lists all public spaces that are not at maximum capacity to serve as an easy method of filtering out spaces that are full.
+
+
 
 #### Favourites
 
@@ -58,6 +75,13 @@ This tab lists the public spaces that have been favourited by the user before.
 
 There is a different public space page for every public space, and provides information about the specific space such as the current capacity, the opening hours, the address, and the booking link if relevant.
 
+
+
+<img align="right" src="https://github.com/The313/Glimpse/blob/master/Images/swimmingpoolUI.PNG" height="300" hspace="30"/>
+
+
+
+
 Current list of spaces:
 
 * Indoor Sports Hall 1
@@ -68,6 +92,8 @@ Current list of spaces:
 * Street Soccer Court
 * Building 57 Level 1 Pantry
 * Building 59 Level 4 Meeting Room
+
+<br>
 
 
 ---
